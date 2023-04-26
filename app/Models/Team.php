@@ -14,4 +14,7 @@ class Team extends Model
         'address',
         'city'
     ];
+    public function players() {
+        return $this->hasMany(Player::class);
+    }
 }
