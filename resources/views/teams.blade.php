@@ -1,4 +1,5 @@
-
+@extends('layout.default')
+@section('content')
 <table class="table">
   <thead>
     <tr>
@@ -23,3 +24,4 @@
     @endforeach
   </tbody>
 </table>
+@endsection

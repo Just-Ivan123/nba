@@ -1,3 +1,5 @@
+@extends('layout.default')
+@section('content')
 <h1>Player {{$player->first_name}}</h1>
 <table class="table">
     <tr>
@@ -7,3 +9,4 @@
       <th scope="col"><a href ="/teams/{{$player->team->id}}">Team : {{$player->team->name}}</a></th>
     </tr>
 </table>
+@endsection

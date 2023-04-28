@@ -1,3 +1,5 @@
+@extends('layout.default')
+@section('content')
 <h1>Team  {{$team->name}}</h1>
 <table class="table">
     <tr>
@@ -32,3 +34,18 @@
     @endforeach
   </tbody>
 </table>
+<hr>
+<h1>Comments</h1>
+<form action="/createcomment" method="POST" class="mt-5">
+        @csrf
+        <div class="mb-3">
+            <label class="form-label">Enter your comment</label>
+            <textarea type="text" class="form-control" name="content" required></textarea>
+            <input type="hidden" name="team_id" value="{{ $team->id }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+    @include('layout.errors')
+@include('layout.session')
+@include('comment')
+@endsection
