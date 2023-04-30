@@ -5,8 +5,9 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
-use nba2\app\Http\Middleware\Authenticate;
- use nba2\app\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\Authenticate;
+ use App\Http\Middleware\AuthMiddleware;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +18,15 @@ use nba2\app\Http\Middleware\Authenticate;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/signin/{id}', [AuthController::class, 'verify']);
 Route::get('/signin', [AuthController::class, 'getSignIn']);
 Route::get('/signup', [AuthController::class, 'getSignUp']);
 Route::post('/signin', [AuthController::class, 'signIn']);
 Route::post('/signup', [AuthController::class, 'signUp']);
 Route::get('/signout', [AuthController::class, 'signOut']);
 
-Route::post('/createcomment', [CommentController::class, 'store']);
-Route::get('/', [TeamController::class, 'index']);
-Route::get('/teams/{id}', [TeamController::class, 'show']);
-Route::get('/players/{id}', [PlayerController::class, 'show']);
+Route::post('/createcomment', [CommentController::class, 'store'])->middleware('bad');
+Route::get('/forbidden-comment', function(){return view('forbidden-comment');});
+Route::get('/', [TeamController::class, 'index'])->middleware('auth');
+Route::get('/teams/{id}', [TeamController::class, 'show'])->middleware('auth');
+Route::get('/players/{id}', [PlayerController::class, 'show'])->middleware('auth');

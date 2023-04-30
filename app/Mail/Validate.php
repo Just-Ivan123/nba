@@ -12,42 +12,16 @@ use Illuminate\Queue\SerializesModels;
 class Validate extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $mailData;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
     }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Validate',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mail.mail',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->view("mail.verification");
     }
 }

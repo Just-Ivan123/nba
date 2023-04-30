@@ -1,5 +1,7 @@
 @extends('layout.default')
 @section('content')
+    @include('layout.errors')
+@include('layout.session')
 <table class="table">
   <thead>
     <tr>

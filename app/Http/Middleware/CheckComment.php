@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
-class AuthMiddleware
+
+class CheckComment
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,10 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()) {
-            return $next($request);
-        }
-        return redirect('/signin');
+        if ( preg_match('/hate|idiot|stupid/i', $request->content, $matches) != 0) {
+            return redirect('/forbidden-comment')->withErrors('Words like: ' . implode(', ', $matches) . " - are forbidden");
+          }else{
+        return $next($request);
+          }
     }
 }

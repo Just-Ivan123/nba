@@ -21,5 +21,4 @@
   <button type="submit" class="btn btn-primary">Sign up</button>
 </form>
 @include('layout.errors')
-@include('layout.session')
 @endsection
